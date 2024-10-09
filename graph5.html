@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chart.js CSV Example</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <canvas id="myChart" width="400" height="200"></canvas>
+    <script>
+        // CSVをパースする関数
+        function parseCSV(text) {
+            const rows = text.trim().split('\n');
+            const headers = rows[0].split(',');
+            const data = rows.slice(1).map(row => {
+                const values = row.split(',');
+                return {
+                    x: parseFloat(values[0]),
+                    y: parseFloat(values[1])
+                };
+            });
+            return data;
+        }
+
+        // CSVファイルからデータを取得する関数
+        async function getDataFromCSV(url) {
+            const response = await fetch(url);
+            const csvText = await response.text();
+            return parseCSV(csvText);
+        }
+
+        async function drawChart() {
+            // CSVファイルから折れ線データを取得
+            const lineDataPoints = await getDataFromCSV('lineData.csv');
+            
+            // CSVファイルから散布図データを取得
+            const scatterDataPoints = await getDataFromCSV('scatterData.csv');
+
+            const ctx = document.getElementById('myChart').getContext('2d');
+
+            // 折れ線グラフのデータ
+            const lineData = {
+                label: 'Line Data',
+                data: lineDataPoints,
+                borderColor: 'blue',
+                fill: false,
+                showLine: true,
+                pointRadius: 0
+            };
+
+            // 散布図のデータ
+            const scatterData = {
+                label: 'Scatter Data',
+                data: scatterDataPoints,
+                borderColor: 'red',
+                backgroundColor: 'red',
+                showLine: false,
+                pointRadius: 5
+            };
+
+            // グラフの設定
+            const config = {
+                type: 'scatter',
+                data: {
+                    datasets: [lineData, scatterData]
+                },
+                options: {
+                    scales: {
+                        x: {
+                            type: 'linear',
+                            position: 'bottom'
+                        }
+                    }
+                }
+            };
+
+            // グラフの描画
+            const myChart = new Chart(ctx, config);
+        }
+
+        // ページが読み込まれたらグラフを描画
+        drawChart();
+    </script>
+</body>
+</html>
