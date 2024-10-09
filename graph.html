@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>折れ線グラフのサンプルページ</title>
+    <!-- Chart.jsのCDNを読み込み -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            color: #333;
+            margin-top: 50px;
+        }
+        canvas {
+            max-width: 80%;
+            margin: 20px auto;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>GitHub Pagesで折れ線グラフを表示する</h1>
+    <p>Chart.jsを使って折れ線グラフを描画しています。</p>
+
+    <!-- グラフを描画するためのcanvas要素 -->
+    <canvas id="lineChart" width="600" height="400"></canvas>
+
+    <script>
+        // 折れ線グラフのデータ
+        const data = {
+            labels: ['1月', '2月', '3月', '4月', '5月', '6月', '7月'],
+            datasets: [{
+                label: '売上高',
+                data: [120, 190, 300, 500, 200, 300, 400],
+                borderColor: 'rgba(75, 192, 192, 1)',
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                fill: true,
+                tension: 0.4  // 折れ線の滑らかさ
+            }]
+        };
+
+        // グラフの設定
+        const config = {
+            type: 'line',
+            data: data,
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true  // Y軸を0から始める
+                    }
+                }
+            }
+        };
+
+        // グラフの描画
+        const lineChart = new Chart(
+            document.getElementById('lineChart'),
+            config
+        );
+    </script>
+
+</body>
+</html>
