@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chart.js Example</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <canvas id="myChart" width="400" height="200"></canvas>
+    <script>
+        const ctx = document.getElementById('myChart').getContext('2d');
+
+        // 折れ線グラフのデータ
+        const lineData = {
+            label: 'Line Data',
+            data: [
+                {x: 0, y: 10},
+                {x: 1, y: 20},
+                {x: 2, y: 15},
+                {x: 3, y: 25},
+                {x: 4, y: 30}
+            ],
+            borderColor: 'blue',
+            fill: false,
+            showLine: true, // 線を表示
+            pointRadius: 0 // 折れ線グラフの点を非表示
+        };
+
+        // 散布図のデータ
+        const scatterData = {
+            label: 'Scatter Data',
+            data: [
+                {x: 0.5, y: 12},
+                {x: 2.5, y: 17},
+                {x: 3.5, y: 28}
+            ],
+            borderColor: 'red',
+            backgroundColor: 'red',
+            showLine: false, // 線を非表示
+            pointRadius: 5 // 散布図の点のサイズを設定
+        };
+
+        // グラフの設定
+        const config = {
+            type: 'scatter',
+            data: {
+                datasets: [lineData, scatterData]
+            },
+            options: {
+                scales: {
+                    x: {
+                        type: 'linear',
+                        position: 'bottom'
+                    }
+                }
+            }
+        };
+
+        // グラフの描画
+        const myChart = new Chart(ctx, config);
+    </script>
+</body>
+</html>
