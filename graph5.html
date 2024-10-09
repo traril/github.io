@@ -16,29 +16,22 @@
             const data = rows.slice(1).map(row => {
                 const values = row.split(',');
                 return {
-                    x: parseFloat(values[0]),
+                    x: new Date(values[0]), // 日付をパースする
                     y: parseFloat(values[1])
                 };
             });
             return data;
         }
-
-        // CSVファイルからデータを取得する関数
-        async function getDataFromCSV(url) {
-            const response = await fetch(url);
-            const csvText = await response.text();
-            return parseCSV(csvText);
-        }
-
+    
         async function drawChart() {
             // CSVファイルから折れ線データを取得
             const lineDataPoints = await getDataFromCSV('lineData.csv');
             
             // CSVファイルから散布図データを取得
             const scatterDataPoints = await getDataFromCSV('scatterData.csv');
-
+    
             const ctx = document.getElementById('myChart').getContext('2d');
-
+    
             // 折れ線グラフのデータ
             const lineData = {
                 label: 'Line Data',
@@ -48,7 +41,7 @@
                 showLine: true,
                 pointRadius: 0
             };
-
+    
             // 散布図のデータ
             const scatterData = {
                 label: 'Scatter Data',
@@ -58,7 +51,7 @@
                 showLine: false,
                 pointRadius: 5
             };
-
+    
             // グラフの設定
             const config = {
                 type: 'scatter',
@@ -68,19 +61,24 @@
                 options: {
                     scales: {
                         x: {
-                            type: 'linear',
-                            position: 'bottom'
+                            type: 'time', // x軸を時間軸に設定
+                            position: 'bottom',
+                            time: {
+                                unit: 'day', // 日ごとに区切る（週、月なども指定可能）
+                                tooltipFormat: 'YYYY-MM-DD' // ツールチップに表示する日付フォーマット
+                            }
                         }
                     }
                 }
             };
-
+    
             // グラフの描画
             const myChart = new Chart(ctx, config);
         }
-
+    
         // ページが読み込まれたらグラフを描画
         drawChart();
     </script>
+    
 </body>
 </html>
