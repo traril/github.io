@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Page with Sample Elements</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1rem 0;
+        }
+        h1 {
+            color: #333;
+        }
+        section {
+            margin: 20px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        ul {
+            list-style-type: square;
+        }
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #333;
+            color: white;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Welcome to My Sample GitHub Pages</h1>
+</header>
+
+<nav>
+    <ul>
+        <li><a href="index.html">ホーム</a></li>
+        <li><a href="graph2.html">折れ線グラフ</a></li>
+        <li><a href="graph3.html">折れ線グラフ3</a></li>
+        <li><a href="graph4.html">折れ線グラフ4</a></li>
+        <li><a href="graph5.html">折れ線グラフ5</a></li>
+    </ul>
+</nav>
+    
+<section>
+    <h2>About This Page</h2>
+    <p>このページは、GitHub PagesのためのサンプルHTMLファイルです。以下にいくつかの要素を示します。</p>
+
+    <h3>テーブル</h3>
+    <table id="data-table">
+        <!-- CSVデータでテーブルを生成 -->
+    </table>
+</section>
+
+<footer>
+    <p>&copy; 2024 My GitHub Pages</p>
+</footer>
+
+<script>
+    // CSVをパースする関数
+    function parseCSV(text) {
+        const rows = text.trim().split('\n');
+        return rows.map(row => row.split(','));
+    }
+
+    // テーブルを生成する関数
+    function createTableFromCSV(data) {
+        const table = document.getElementById('data-table');
+        
+        // ヘッダー行を追加
+        const headers = data[0];
+        const thead = document.createElement('thead');
+        const headerRow = document.createElement('tr');
+        headers.forEach(headerText => {
+            const th = document.createElement('th');
+            th.textContent = headerText;
+            headerRow.appendChild(th);
+        });
+        thead.appendChild(headerRow);
+        table.appendChild(thead);
+
+        // データ行を追加
+        const tbody = document.createElement('tbody');
+        data.slice(1).forEach(row => {
+            const tr = document.createElement('tr');
+            row.forEach(cellText => {
+                const td = document.createElement('td');
+                td.textContent = cellText;
+                tr.appendChild(td);
+            });
+            tbody.appendChild(tr);
+        });
+        table.appendChild(tbody);
+    }
+
+    // CSVファイルからデータを取得する関数
+    async function loadCSV(url) {
+        try {
+            const response = await fetch(url);
+            const csvText = await response.text();
+            const data = parseCSV(csvText);
+            createTableFromCSV(data);
+        } catch (error) {
+            console.error('CSVの読み込みに失敗しました:', error);
+        }
+    }
+
+    // ページが読み込まれたらCSVを読み込む
+    loadCSV('data.csv');
+</script>
+
+</body>
+</html>
