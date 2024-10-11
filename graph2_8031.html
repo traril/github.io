@@ -26,8 +26,7 @@
 </head>
 <body>
 
-    <h1>CSVファイルからデータを読み込んでグラフを表示</h1>
-    <p>Chart.jsを使って折れ線グラフを描画しています。</p>
+    <h1>株データ</h1>
 
     <!-- グラフを描画するためのcanvas要素 -->
     <canvas id="lineChart" width="600" height="400"></canvas>
@@ -63,7 +62,7 @@
                 data: {
                     labels: labels,  // X軸ラベル
                     datasets: [{
-                        label: '売上高',
+                        label: '株価',
                         data: data,  // Y軸データ
                         borderColor: 'rgba(75, 192, 192, 1)',
                         backgroundColor: 'rgba(75, 192, 192, 0.2)',
