@@ -9,6 +9,16 @@
 <body>
     <canvas id="myChart" width="400" height="200"></canvas>
     <script>
+        // CSVファイルを取得する関数
+        async function getDataFromCSV(filePath) {
+            const response = await fetch(filePath);
+            if (!response.ok) {
+                throw new Error('CSVファイルの取得に失敗しました: ' + response.statusText);
+            }
+            const text = await response.text();
+            return parseCSV(text);
+        }
+
         // CSVをパースする関数
         function parseCSV(text) {
             const rows = text.trim().split('\n');
@@ -23,6 +33,7 @@
             return data;
         }
     
+        // グラフを描画する関数
         async function drawChart() {
             // CSVファイルから折れ線データを取得
             const lineDataPoints = await getDataFromCSV('lineData.csv');
@@ -79,6 +90,5 @@
         // ページが読み込まれたらグラフを描画
         drawChart();
     </script>
-    
 </body>
 </html>
