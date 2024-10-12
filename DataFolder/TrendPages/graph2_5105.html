@@ -45,19 +45,21 @@
             const labels = [];
             const lineData = [];
             const scatterData = [];
+            const scatterDataSihanki = [];
 
             lines.forEach(line => {
                 const [month, open, high, low, close, dividends, stocksplits, sonota, henkou, rinzi, sihanki, yuuka] = line.split(',');  // カンマ区切りで分割
                 labels.push(month);
                 lineData.push(parseInt(close));
                 scatterData.push({ x: month, y: parseInt(yuuka) });
+                scatterDataSihanki.push({ x: month, y: parseInt(sihanki) });
             });
 
-            return { labels, lineData, scatterData };
+            return { labels, lineData, scatterData, scatterDataSihanki };
         }
 
         // Chart.jsでグラフを描画する関数
-        function createChart(labels, lineData, scatterData) {
+        function createChart(labels, lineData, scatterData, scatterDataSihanki) {
             const ctx = document.getElementById('lineChart').getContext('2d');
             new Chart(ctx, {
                 type: 'line',
@@ -75,10 +77,18 @@
                         },
                         {
                             type: 'scatter',
-                            label: '有価証券報告書',
+                            label: '優価',
                             data: scatterData,  // 散布図のデータ
                             backgroundColor: 'rgba(255, 99, 132, 1)',
                             borderColor: 'rgba(255, 99, 132, 1)',
+                            pointRadius: 5
+                        },
+                        {
+                            type: 'scatter',
+                            label: '四半期',
+                            data: scatterDataSihanki,  // 四半期の散布図のデータ
+                            backgroundColor: 'rgba(54, 162, 235, 1)',
+                            borderColor: 'rgba(54, 162, 235, 1)',
                             pointRadius: 5
                         }
                     ]
@@ -96,8 +106,8 @@
 
         // データを取得してグラフを作成する
         fetchData().then(csv => {
-            const { labels, lineData, scatterData } = parseCSV(csv);
-            createChart(labels, lineData, scatterData);
+            const { labels, lineData, scatterData, scatterDataSihanki } = parseCSV(csv);
+            createChart(labels, lineData, scatterData, scatterDataSihanki);
         });
     </script>
 
