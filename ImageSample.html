@@ -4,14 +4,66 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>画像のサンプルページ</title>
+    <style>
+        .container {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+        .article {
+            flex: 1;
+            padding: 20px;
+        }
+        .image {
+            flex: 1;
+            padding: 20px;
+        }
+        .table {
+            flex: 1;
+            padding: 20px;
+        }
+    </style>
 </head>
 <body>
     <h1>画像を表示するページ</h1>
 
-    <!-- 画像を表示 -->
-    <img src="Image\Image1.jpg" alt="サンプル画像" style="max-width:100%; height:auto;">
+    <div class="container">
+        <!-- 記事部分 -->
+        <div class="article">
+            <p>このページでは、画像のサンプルを表示し、画像の横に記事を追加しました。この記事部分では画像についての説明や詳細を記載することができます。この方法で、テキストと画像を並べて表示することで、閲覧者により良い情報提供が可能になります。</p>
+        </div>
 
-    <p>このページでは、画像のサンプルを表示しています。</p>
+        <!-- 画像部分 -->
+        <div class="image">
+            <img src="Image/Image1.jpg" alt="サンプル画像" style="max-width:100%; height:auto;">
+        </div>
+
+        <!-- 表部分 -->
+        <div class="table">
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>項目</th>
+                        <th>詳細</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>サンプル1</td>
+                        <td>詳細情報1</td>
+                    </tr>
+                    <tr>
+                        <td>サンプル2</td>
+                        <td>詳細情報2</td>
+                    </tr>
+                    <tr>
+                        <td>サンプル3</td>
+                        <td>詳細情報3</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 
 </body>
 </html>
