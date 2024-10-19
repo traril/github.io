@@ -30,32 +30,37 @@
 </head>
 <body>
     <header>
-        <h1>サンプル記事タイトル</h1>
+        <h1>バフェットによる商社保有</h1>
     </header>
 
     <article>
-        <p>これは記事のサンプル内容です。このページでは、簡単な記事と画像、そして5列のテーブルを縦に並べたレイアウトを紹介しています。</p>
+        <p>バフェットはＮａｔｉｏｎａｌ　Ｉｎｄｅｍｎｉｔｙ　Ｃｏｍｐａｎｙを通して日本の商社に投資しています、2020年に最初の購入、2022および2023年に買い増しています (2024/10/19)</p>
     </article>
 
-    <!-- 画像とテーブルを4つ繰り返して縦に並べる -->
+    <!-- 画像とテーブルを5つ繰り返して縦に並べる -->
     <section>
-        <img src="Image/住友商事241019.png" alt="サンプル画像">
+        <img src="Image/8001.png" alt="サンプル画像">
         <div id="tableContainer1"></div>
     </section>
 
     <section>
-        <img src="Image/住友商事241019.png" alt="サンプル画像">
+        <img src="Image/8002.png" alt="サンプル画像">
         <div id="tableContainer2"></div>
     </section>
 
     <section>
-        <img src="Image/住友商事241019.png" alt="サンプル画像">
+        <img src="Image/8031.png" alt="サンプル画像">
         <div id="tableContainer3"></div>
     </section>
 
     <section>
-        <img src="Image/住友商事241019.png" alt="サンプル画像">
+        <img src="Image/8053.png" alt="サンプル画像">
         <div id="tableContainer4"></div>
+    </section>
+
+    <section>
+        <img src="Image/8058.png" alt="サンプル画像">
+        <div id="tableContainer5"></div> <!-- IDを修正 -->
     </section>
 
     <script>
@@ -94,10 +99,11 @@
 
         // ページロード時にCSVを読み込む
         document.addEventListener("DOMContentLoaded", function() {
-            loadCSVAndDisplay("CSVfile/data.csv", "tableContainer1"); // CSVファイルのパスを指定
-            loadCSVAndDisplay("CSVfile/data.csv", "tableContainer2");
-            loadCSVAndDisplay("CSVfile/data.csv", "tableContainer3");
-            loadCSVAndDisplay("CSVfile/data.csv", "tableContainer4");
+            loadCSVAndDisplay("CSVfile/8001.csv", "tableContainer1"); // CSVファイルのパスを指定
+            loadCSVAndDisplay("CSVfile/8002.csv", "tableContainer2");
+            loadCSVAndDisplay("CSVfile/8031.csv", "tableContainer3");
+            loadCSVAndDisplay("CSVfile/8053.csv", "tableContainer4");
+            loadCSVAndDisplay("CSVfile/8058.csv", "tableContainer5");
         });
     </script>
 </body>
