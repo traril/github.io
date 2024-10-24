@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>サンプルページ</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table, th, td {
+            border: 1px solid #333;
+        }
+        th, td {
+            padding: 5px;
+            text-align: left;
+            height: 10px; /* マスの高さを調整 */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>バフェットによる商社保有</h1>
+    </header>
+
+    <article>
+        <p>7939株式会社研創と同じ動きをする株</p>
+    </article>
+
+    <!-- 画像とテーブルを5つ繰り返して縦に並べる -->
+    <section>
+        <img src="Image\7939株式会社研創_Filtered_Trend_Plot.png" alt="サンプル画像">
+        <div id="tableContainer1"></div>
+    </section>
+
+
+    <script>
+        // CSVファイルを読み込み、テーブルに変換する関数
+        function loadCSVAndDisplay(url, containerId) {
+            fetch(url)
+                .then(response => response.text())
+                .then(data => {
+                    // CSVを行ごとに分割
+                    const rows = data.split("\n");
+                    let tableHtml = "<table><thead><tr>";
+
+                    // ヘッダー行の処理
+                    const headers = rows[0].split(",");
+                    headers.forEach(header => {
+                        tableHtml += `<th>${header.trim()}</th>`;
+                    });
+                    tableHtml += "</tr></thead><tbody>";
+
+                    // データ行の処理
+                    for (let i = 1; i < rows.length; i++) {
+                        if (rows[i].trim() === "") continue; // 空行を無視
+                        const cols = rows[i].split(",");
+                        tableHtml += "<tr>";
+                        cols.forEach(col => {
+                            tableHtml += `<td>${col.trim()}</td>`;
+                        });
+                        tableHtml += "</tr>";
+                    }
+
+                    tableHtml += "</tbody></table>";
+                    document.getElementById(containerId).innerHTML = tableHtml;
+                })
+                .catch(error => console.error("CSVの読み込み中にエラーが発生しました:", error));
+        }
+
+        // ページロード時にCSVを読み込む
+        document.addEventListener("DOMContentLoaded", function() {
+            loadCSVAndDisplay("CSVTable/7939株式会社研創_Filtered_Trend_Data.csv", "tableContainer1"); // CSVファイルのパスを指定
+        });
+    </script>
+</body>
+</html>
